@@ -1,0 +1,82 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Сервіс Обліку Студентів - {% block meta_title %}{% endblock meta_title %}</title>
+  <meta name="description" value="Система Обліку Студентів Навчального Закладу" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="localhost:8000{% static "css/main.css" %}">
+
+  {% block extra_css %}{% endblock extra_css %}
+
+</head>
+<body>
+
+  <!-- Start Container -->
+  <div class="container">
+
+    <!-- Start Header -->
+    <div class="row" id="header">
+      <div class="col-xs-8">
+        <h1>Сервіс Обліку Студентів</h1>
+      </div>
+      <div class="col-xs-4" id="group-selector">
+        <strong>Група:</strong>
+        <select>
+          <option value="">Усі Студенти</option>
+          <option value="">Мтм-21, Віталій Подоба</option>
+          <option value="">Мтм-22, Андрій Петров</option>
+        </select>
+      </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Start subheader -->
+    <div class="row" id="sub-header">
+      <div class="col-xs-12">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" {% if request.path == '/' %}class="active"{% endif %}><a href="{% url "home" %}">Студенти</a></li>
+          <li role="presentation" {% if '/journal' in request.path %}class="active"{% endif %}><a href="/journal">Відвідування</a></li>
+          <li role="presentation" {% if '/groups' in request.path %}class="active"{% endif %}><a href="{% url "groups" %}">Групи</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- End subheader -->
+
+    <!-- Start Content Columns -->
+    <div class="row" id="content-columns">
+      <div class="col-xs-12" id="content-column">
+
+        {% comment "Not used alert so far" %}
+        <div class="alert alert-warning" role="alert">Status Update!</div>
+        {% endcomment %}
+
+        <h2>{% block title %}{% endblock title %}</h2>
+        {% block content %}{% endblock content %}
+
+      </div>
+    </div>
+    <!-- End Content Columns -->
+
+    <!-- Start Footer -->
+    <div class="row" id="footer">
+      <div class="col-xs-12">
+        &copy; Сервіс Обліку Студентів
+      </div>
+    </div>
+    <!-- End Footer -->
+
+  </div>
+  <!-- End Container -->
+
+  <!-- Javascripts Inclusion -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Студенти{% endblock meta_title %}
+
+{% block title %}База Студентів{% endblock title %}
+
+{% block content %}
+<a href="{% url "students_add" %}" class="btn btn-primary">Додати Студента</a>
+
+<!-- Start Students Listing -->
+<table class="table">
+  <thead>
+    <tr>
+      <th><a href="#">#</a></th>
+      <th>Фото</th>
+      <th><a href="#">Прізвище &uarr;</a></th>
+      <th><a href="#">Ім'я</a></th>
+      <th><a href="#">№ Білету</a></th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td><img class="img-circle" src="{% static student.image %}" height="30" width="30" /></td>
+      <td><a href="{% url "students_edit" student.id %}">{{ student.last_name }}</td>
+      <td><a href="{% url "students_edit" student.id %}">{{ student.first_name }}</td>
+      <td>{{ student.ticket }}</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle"
+                  data-toggle="dropdown">Дія
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url "students_edit" student.id %}">Редагувати</a></li>
+            <li><a href="/journal/{{ student.id }}">Відвідування</a></li>
+            <li><a href="{% url "students_delete" student.id %}">Видалити</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+<!-- End Students Listing -->
+
+<nav>
+  <ul class="pagination">
+    <li><a href="#">&laquo;</a></li>
+    <li><a href="#">1</a></li>
+    <li class="active"><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">&raquo;</a></li>
+  </ul>
+</nav>
+
+{% endblock content %}
