@@ -7,7 +7,7 @@ from django.http import HttpResponse
 
 
 def students_list(request):
-    students = (
+    students = [
         {'id': 1,
          'first_name': u'Віталій',
          'last_name': u'Подоба',
@@ -18,9 +18,8 @@ def students_list(request):
          'last_name': u'Андрій',
          'ticket': 2123,
          'image': 'img/piv.png'},
-    )
-    return render(request,'students/templates/student_templates/students_list.html',
-        {'students': students})
+    ]
+    return render(request,'students_list.html', {'students': students})
 
 def students_add(request):
     return HttpResponse('<h1>Student Add Form</h1>')
